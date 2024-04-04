@@ -4,10 +4,10 @@ import { router } from 'expo-router';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import { Colors, BorderRadiuses, View, Image, ListItem, Text, Card } from 'react-native-ui-lib';
-import search from './yelp';
+import search from '../yelp';
 
-export default function App() {
-  const sample = require('./sample.yelp.response.json');
+export default function Page() {
+  const sample = require('../sample.yelp.response.json');
 
   const [location, setLocation] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -45,11 +45,11 @@ export default function App() {
   //   text = JSON.stringify(location);
   //   // console.log('LOCATION_DUMP: ', location)
   // }
-  const defaultImage = require('./assets/default.jpeg');
+  const defaultImage = require('../assets/default.jpeg');
   const generateFlatList = (data) => {
    
     let output = <FlatList contentContainerStyle={{ paddingVertical: 0, width: '100%' }} data={data} keyExtractor={item => item.id} renderItem={ ({item}) =>
-        <Card enableShadow={true} row flex marginV-5 onPress={() => router.navigate('/details')} style={{ width: '100%', padding: 10 }}>
+        <Card enableShadow={true} row flex marginV-5 onPress={() => router.navigate({pathname: '/details', params: {title: item.name}})} style={{ width: '100%', padding: 10 }}>
           {/* <Card.Image source={{uri: item.image_url}} height={115} /> */}
           <Card.Section imageSource={ item.image_url ? {uri: item.image_url} : defaultImage } flexS imageStyle={{height: '100%', width: 100 }}/>
           <Card.Section
